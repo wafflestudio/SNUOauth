@@ -1,14 +1,80 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>SNUOauth</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+    <%= csrf_meta_tags %>
 
-<%= yield %>
+    <title>SNUOauth</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </head>
+  <body>
+    <!-- Header and Nav -->
+    <div class="row">
+      <div class="large-3 columns">
+        <h1><img src="http://placehold.it/400x100&text=Logo" /></h1>
+      </div>
+      <div class="large-9 columns">
+        <ul class="inline-list right">
+          <% if user_signed_in? %>
+            <li>
+            <a href="#" data-dropdown="user-dropdown"><%= current_user.email %></a>
+            <ul id="user-dropdown" class="f-dropdown" data-dropdown-content>
+              <li><%= link_to "Sign out", destroy_user_session_path, :method => "delete" %></li>
+            </ul>
+          <% else %>
+            <li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
 
-</body>
+    <!-- End Header and Nav -->
+    <div class="row">    
+      <!-- Main Content Section -->
+      <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+      <%= yield %>
+
+      <!-- Nav Sidebar -->
+      <!-- This is source ordered to be pulled to the left on larger screens -->
+      <div class="large-3 pull-9 columns">
+        <ul class="side-nav">
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "App Console", apps_path %></li>
+          <li><%= link_to "API", api_path, :target => "_blank" %></li>
+          <li><%= link_to "FAQ", posts_path %></li>
+        </ul>
+
+        <p><img src="http://placehold.it/320x240&text=Ad" /></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>
+          <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+            <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">&copy;
+            </span>
+          <!--[if lte IE 8]></span><![endif]-->
+          Developed by <a href="https://www.facebook.com/taekmin.kim" target="_blank" alt="tantara's Facebook">tantara</a> in <a href="http://wafflestudio.com/" target="_blank">Wafflestudio</a>.
+          </p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><%= link_to "About", about_path, :target => "_blank" %></li>
+            <li><%= link_to "Contact", contact_path %></li>
+            <li><%= link_to "Facebook", facebook_path, :target => "_blank" %></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+    </footer>
+  </body>
 </html>

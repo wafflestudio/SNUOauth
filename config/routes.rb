@@ -1,4 +1,23 @@
 SNUOauth::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  devise_for :admins
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
+
+  root 'main#home'
+  get 'api' => "main#api"
+  get 'about' => "main#about"
+  get 'contact' => "main#contact"
+  get 'facebook' => "main#facebook"
+
+  resources :apps, :except => [:show]
+  resources :posts
+  resources :comments, :only => [:create, :destroy]
+  
+  scope "api" do
+    get 'authorize' => 'api#authorize'
+    post 'token' => 'api#token'
+    get 'account/info' => 'api#account_info'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

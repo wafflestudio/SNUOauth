@@ -1,0 +1,14 @@
+<div class="large-9 push-3 columns">
+  <h3>Your apps <small><%= link_to "Create app", new_app_path, :class => "button small right" %></small></h3>
+  <p>Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin. Venison tail chuck pork chop, andouille ball tip beef ribs flank boudin bacon. Salami andouille pork belly short ribs flank cow. Salami sirloin turkey kielbasa. Sausage venison pork loin leberkas chuck short loin, cow ham prosciutto pastrami jowl. Ham hock jerky tri-tip, fatback hamburger shoulder swine pancetta ground round. Tri-tip prosciutto meatball turkey, brisket spare ribs shankle chuck cow chicken ham hock boudin meatloaf jowl.</p>
+
+  <% @apps.each do |app| %>
+    <div class="row">
+      <div class="small-3 large-2 columns"><img src="http://placehold.it/80x80&amp;text=[img]"></div>
+      <div class="small-9 large-10 columns">
+        <p><strong><%= link_to app.name, edit_app_path(app) %></strong> <%= app.description %></p>
+        <p><span class="label secondary">Redirect URI</span> <%= link_to app.redirect_uri, app.redirect_uri, :target => "_blank" %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
