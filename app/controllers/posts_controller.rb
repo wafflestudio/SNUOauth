@@ -11,7 +11,8 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(params[:post].permit(:title, :content))
     
     if @post.save
-      redirect_to post_path(@post)
+      #redirect_to post_path(@post)
+      redirect_to posts_path
     else
       render "new"
     end
@@ -29,7 +30,8 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     
     if @post.update_attributes(params[:post].permit(:title, :content))
-      redirect_to post_path(@post)
+      #redirect_to post_path(@post)
+      redirect_to posts_path
     else
       render "edit"
     end

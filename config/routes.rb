@@ -10,12 +10,12 @@ SNUOauth::Application.routes.draw do
   get 'facebook' => "main#facebook"
 
   resources :apps, :except => [:show]
-  resources :posts
-  resources :comments, :only => [:create, :destroy]
+  resources :posts, :only => [:index, :new, :create, :destroy]
+  resources :comments, :only => [:new, :create, :destroy]
   
   scope "api" do
+    get 'test' => 'api#test'
     get 'authorize' => 'api#authorize'
-    post 'token' => 'api#token'
     get 'account/info' => 'api#account_info'
   end
   # The priority is based upon order of creation: first created -> highest priority.

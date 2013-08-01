@@ -15,7 +15,7 @@
         <%= f.label :name, "App Name", :class => "right inline" %>
       </div>
       <div class="small-9 columns">
-        <%= f.text_field :name, :placeholder => "My App with SNU Oauth" %>
+        <%= f.text_field :name, :placeholder => "My App with SNU Oauth", :required => true %>
       </div>
     </div>
     <hr />
@@ -24,7 +24,7 @@
         <%= f.label :redirect_uri, "Redirect URI", :class => "right inline" %>
       </div>
       <div class="small-9 columns">
-        <%= f.text_field :redirect_uri, :placeholder => "example.com" %>
+        <%= f.url_field :redirect_uri, :placeholder => "example.com", :required => true %>
       </div>
     </div>
     <hr />

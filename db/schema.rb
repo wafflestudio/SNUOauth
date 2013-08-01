@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130730063245) do
+ActiveRecord::Schema.define(version: 20130730112728) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -33,15 +33,25 @@ ActiveRecord::Schema.define(version: 20130730063245) do
 
   create_table "app_requests", force: true do |t|
     t.integer  "app_id",       default: 0,  null: false
-    t.string   "permission",   default: "", null: false
-    t.string   "oauth_token",  default: "", null: false
-    t.string   "access_token", default: "", null: false
+    t.integer  "app_token_id", default: 0,  null: false
     t.string   "type",         default: "", null: false
-    t.string   "status",       default: "", null: false
+    t.integer  "status",       default: 0,  null: false
     t.string   "message",      default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "app_tokens", force: true do |t|
+    t.integer  "app_id",       default: 0,        null: false
+    t.integer  "user_id",      default: 0,        null: false
+    t.boolean  "authorized",   default: false,    null: false
+    t.string   "access_token", default: "",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "token_type",   default: "bearer", null: false
+  end
+
+  add_index "app_tokens", ["access_token"], name: "index_app_tokens_on_access_token", unique: true
 
   create_table "apps", force: true do |t|
     t.integer  "user_id",      default: 0,  null: false

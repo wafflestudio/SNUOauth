@@ -1,0 +1,9 @@
+<%= form_for(@comment, :remote => true) do |f| %>
+  <%= f.hidden_field :post_id %>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.text_area :content, :required => true %>
+    </div>
+  </div>
+  <%= f.submit "Reply", :class => "button small right" %>
+<% end %>

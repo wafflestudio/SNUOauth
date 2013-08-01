@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
   ##Relation
+  has_many :app_tokens, :dependent => :destroy
   has_many :app_requests, :dependent => :destroy
 
   ##Validation

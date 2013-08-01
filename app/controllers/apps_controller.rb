@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   def index
-    @apps = App.all
+    @apps = current_user.apps
   end
 
   def new
@@ -10,8 +10,8 @@ class AppsController < ApplicationController
   def create
     #@app = current_user.apps.new(params[:app])
     @app = App.new(params[:app].permit(:name, :redirect_uri))
-    @app.app_key = Devise.friendly_token[0,10]
-    @app.app_secret = Devise.friendly_token[0,20]
+    @app.app_key = Devise.friendly_token[0,15]
+    @app.app_secret = Devise.friendly_token[0,15]
 
     if @app.save
       redirect_to edit_app_path(@app)
