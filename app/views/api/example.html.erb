@@ -1,0 +1,88 @@
+<h4>SNUOauth Example.</h4>
+
+<div class="row">
+  <div class="large-12 columns">
+    <p>이 앱은 성적과 관련된 어떤 정보도 저장하지 않습니다.</p>
+<% type = ["", "학부", "석사", "박사"] %>
+<% avgs_courses = @avgs['seongjeok_info']['course'].is_a?(Array) ? @avgs['seongjeok_info']['course'] : [@avgs['seongjeok_info']['course']] %>
+<% avgs_courses.each_with_index do |course, i| %>
+  <% pyungjeom = course['pyungjeom'].is_a?(Array) ? course['pyungjeom'] : [course['pyungjeom']] %>
+  <% data_set = pyungjeom.map {|p| [p['id'], p['pyeonggyun'].to_f]} %>
+  <div id="chart-avg-<%= i %>"></div>
+<hr />
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var line = <%= data_set.to_s.html_safe %>;
+
+        var plot = $.jqplot('chart-avg-<%= i %>', [line], {
+              title: '전체 학기 평점(<%= type[course['cd'].to_i] %>)',
+              axes: {
+              xaxis: {
+              label: "학기",
+              renderer: $.jqplot.CategoryAxisRenderer,
+              tickOptions: {
+              formatString: 'Date: %s'
+              }
+              },
+              yaxis: {
+              label: "평점",
+              tickOptions: {
+              formatString: '%.2f'
+              }
+              }
+              },
+              highlighter: {
+              show: true,
+              tooltipAxes: 'y',
+              sizeAdjust: 7.5
+                           },
+              cursor: {
+              show: true
+            }
+      });
+    });
+  </script>
+<% end %>
+
+<% grades_courses = @grades['seongjeok_info']['course'].is_a?(Array) ? @grades['seongjeok_info']['course'] : [@grades['seongjeok_info']['course']] %>
+<% grades_courses.each_with_index do |course, i| %>
+  <% data_set = {}#{'A' => 0, 'B' => 0, 'C' => 0, 'D' => 0, 'F' => 0} %>
+  <% seongjeoks = course['seongjeok'].is_a?(Array) ? course['seongjeok'] : [course['seongjeok']] %>
+  <% seongjeoks.each do |seongjeok| %>
+    <% p = data_set[seongjeok['sungjuk'].to_s[0]].to_i + 1 %>
+    <% data_set[seongjeok['sungjuk'].to_s[0]] = p %>
+  <% end %>
+  <div id="chart-grade-<%= i %>"></div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var data = <%= data_set.to_a.to_s.html_safe %>;
+
+      var plot = jQuery.jqplot ('chart-grade-<%= i %>', [data], 
+        { 
+          title: '전체 학기 성적 분포(<%= type[course['cd'].to_i] %>)',
+          seriesDefaults: {
+            renderer: jQuery.jqplot.PieRenderer, 
+            rendererOptions: {
+              showDataLabels: true
+            }
+          }, 
+          legend: { show:true, location: 'e' }
+        }
+      );
+    });
+  </script>
+
+<% hyear_hakgi = "" %>
+<ul class="pricing-table">
+  <li class="title"><%= course['id'] %></li>
+  <% seongjeoks.each do |seongjeok| %>
+  <% tmp_hyear_hakgi = seongjeok['hyear'] + "-" + seongjeok['hakgi'] %>
+  <% if tmp_hyear_hakgi != hyear_hakgi %>
+    <% hyear_hakgi = tmp_hyear_hakgi %>
+    <li class="price"><%= hyear_hakgi %></li>
+  <% end %>
+  <li class="bullet-item"><%= seongjeok['gyoname'] %>(<%= "#{seongjeok['sungjuk']}, #{seongjeok['hakjeom']}" %>)</li>
+  <% end %>
+  <li class="cta-button"><a class="button" href="#chart-grade-<%= i %>">그래프보기</a></li>
+</ul>
+<% end %>

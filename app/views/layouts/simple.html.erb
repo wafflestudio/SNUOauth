@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+    <%= csrf_meta_tags %>
+
+    <title>SNUOauth</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </head>
+  <body>
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="panel">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>
+          <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+            <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">&copy;
+            </span>
+          <!--[if lte IE 8]></span><![endif]-->
+          Developed by <a href="https://www.facebook.com/taekmin.kim" target="_blank" alt="tantara's Facebook">tantara</a> in <a href="http://wafflestudio.com/" target="_blank">Wafflestudio</a>.
+          </p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><%= link_to "About", about_path, :target => "_blank" %></li>
+            <li><%= link_to "Contact", contact_path %></li>
+            <li><%= link_to "Facebook", facebook_path, :target => "_blank" %></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+    </footer>
+  </body>
+</html>

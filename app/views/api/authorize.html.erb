@@ -1,0 +1,11 @@
+<h4><%= @app.name %>이(가) MySNU에 액세스하고자 합니다.</h4>
+
+<div class="row">
+  <div class="large-9 columns">
+    <p>이 앱은 모든 항목을 읽거나 수정할 수 있습니다.</p>
+  </div>
+  <div class="large-3 columns">
+    <%= link_to "취소", "#{request.original_fullpath}&access=deny", :class => "radius button secondary" %>
+    <%= link_to "허용", "#{request.original_fullpath}&access=allow", :class => "radius button" %>
+  </div>
+</div>

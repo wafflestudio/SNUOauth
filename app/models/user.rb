@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   ##Method
   def self.find_for_mysnu_oauth(email, token)
     provider = "mysnu"
-    user = User.where(:provider => mysnu, :uid => email).first
+    user = User.where(:provider => provider, :uid => email).first
     unless user
       user = User.create(provider: provider,
                          uid:email,

@@ -4,10 +4,8 @@ class CreateAppTokens < ActiveRecord::Migration
       t.belongs_to :app,           :null => false, :default => ""
       t.belongs_to :user,           :null => false, :default => ""
 
-      t.boolean :authorized,      :null => false, :default => false
-
       t.string :access_token,      :null => false, :default => ""
-      t.timestamps :expired_at,   :null => false, :default => Time.now
+      t.datetime :expired_at,   :null => false, :default => Time.now
       t.string :token_type,      :null => false, :default => "bearer"
 
       t.timestamps

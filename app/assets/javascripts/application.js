@@ -12,9 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-migrate-min
 //= require modernizr
 //= require foundation
 //= require turbolinks
+//= require jqplot/jquery.jqplot
+//= require jqplot/jqplot.categoryAxisRenderer
+//= require jqplot/jqplot.highlighter
+//= require jqplot/jqplot.pieRenderer
 //= require_self
 
 $(document).foundation();

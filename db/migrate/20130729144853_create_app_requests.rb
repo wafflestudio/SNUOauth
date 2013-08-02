@@ -5,7 +5,7 @@ class CreateAppRequests < ActiveRecord::Migration
       t.belongs_to :app_token,        :null => false, :default => ""
 
       t.string :type,          :null => false, :default => ""
-      t.integer :status,        :null => false, :default => ""
+      t.integer :status,        :null => false, :default => 0
       t.string :message,       :null => false, :default => ""
 
       t.timestamps

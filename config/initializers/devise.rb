@@ -222,7 +222,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  config.omniauth :facebook, "453605201404137", "55f811a63df955fafa8c0e8f3850e777", {:scope => "email"} # walnut.wafflestudio.net:3400
+  config.omniauth :facebook, "453605201404137", "55f811a63df955fafa8c0e8f3850e777", {:scope => "email"} # services.snu.ac.kr:3400
   config.omniauth :google_oauth2, "", "", {access_type: "offline", approval_prompt: "force", scope: "userinfo.email userinfo.profile"} # walnut.wafflestudio.net:3400
 
   # ==> Warden configuration

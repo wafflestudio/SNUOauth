@@ -14,9 +14,10 @@ SNUOauth::Application.routes.draw do
   resources :comments, :only => [:new, :create, :destroy]
   
   scope "api" do
-    get 'test' => 'api#test'
+    get 'example' => 'api#example'
     get 'authorize' => 'api#authorize'
     get 'account/info' => 'api#account_info'
+    get ':client_id' => 'apps#shorten_url', :as => "shorten_url"
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

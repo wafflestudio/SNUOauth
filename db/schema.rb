@@ -42,13 +42,13 @@ ActiveRecord::Schema.define(version: 20130730112728) do
   end
 
   create_table "app_tokens", force: true do |t|
-    t.integer  "app_id",       default: 0,        null: false
-    t.integer  "user_id",      default: 0,        null: false
-    t.boolean  "authorized",   default: false,    null: false
-    t.string   "access_token", default: "",       null: false
+    t.integer  "app_id",       default: 0,                     null: false
+    t.integer  "user_id",      default: 0,                     null: false
+    t.string   "access_token", default: "",                    null: false
+    t.datetime "expired_at",   default: '2013-08-02 04:36:24', null: false
+    t.string   "token_type",   default: "bearer",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token_type",   default: "bearer", null: false
   end
 
   add_index "app_tokens", ["access_token"], name: "index_app_tokens_on_access_token", unique: true
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20130730112728) do
     t.string   "app_key",      default: "", null: false
     t.string   "app_secret",   default: "", null: false
     t.string   "redirect_uri", default: "", null: false
+    t.string   "shorten_url",  default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
