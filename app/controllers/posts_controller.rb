@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_filter :is_authenticated?, :only => [:new, :create, :destroy]
+  before_filter :is_authorized?, :only => [:destroy]
+
   def index
     @posts = Post.all
   end
@@ -18,28 +21,14 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
-  def edit
-    @post = Post.find(params[:id])
-  end
-
-  def update
-    @post = Post.find(params[:id])
-    
-    if @post.update_attributes(params[:post].permit(:title, :content))
-      #redirect_to post_path(@post)
-      redirect_to posts_path
-    else
-      render "edit"
-    end
-  end
-
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path
+  end
+
+  private
+  def is_authorized?
+    @post = Post.find(params[:id])
+    redirect_to root_path if @post.nil? || @post.user.id != current_user.id
   end
 end

@@ -1,4 +1,7 @@
 class AppsController < ApplicationController
+  before_filter :is_authenticated?, :except => [:shorten_url]
+  before_filter :is_authorized?, :except => [:index, :new, :create, :shorten_url]
+
   def index
     @apps = current_user.apps
   end
@@ -20,11 +23,9 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @app = App.find(params[:id])
   end
 
   def update
-    @app = App.find(params[:id])
     if @app.update_attributes(params[:app].permit(:redirect_uri, :name, :publisher, :description, :website))
       redirect_to edit_app_path(@app)
     else
@@ -49,5 +50,11 @@ class AppsController < ApplicationController
         redirect_to authorize_path(:client_id => app.app_key, :response_type => "token", :redirect_uri => app.redirect_uri)
       end
     end
+  end
+
+  private
+  def is_authorized?
+    @app = App.find(params[:id])
+    redirect_to root_path if @app.nil? || @app.user.id != current_user.id
   end
 end

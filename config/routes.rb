@@ -1,7 +1,7 @@
 SNUOauth::Application.routes.draw do
+  devise_for :admins, :path => "admin", :path_names => {:sign_up => "signup", :sign_in => "signin", :sign_out => "signout"}, :skip => [:passwords, :registrations]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  devise_for :admins
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}, :skip => [:passwords, :registrations]
 
   root 'main#home'
   get 'api' => "main#api"
